@@ -230,7 +230,7 @@ def verse_image(key):
     # --------------------------
     # Draw watermark tag in corner
     # --------------------------
-    credit_text = '/votd • "PwimpMyWide"'
+    credit_text = '/votd PwimpMyWide'
     tag_bbox = draw.textbbox((0, 0), credit_text, font=tag_font)
     tag_w = tag_bbox[2] - tag_bbox[0]
     tag_h = tag_bbox[3] - tag_bbox[1]
