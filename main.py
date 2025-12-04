@@ -45,6 +45,3 @@ def votd():
 if __name__ == "__main__":
     # Replit-friendly host/port
     app.run(host="0.0.0.0", port=8000)
-flask
-requests
-gunicorn
