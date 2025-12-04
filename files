@@ -1,0 +1,50 @@
+from flask import Flask
+import requests
+
+app = Flask(__name__)
+
+# Bible.org labs API for a random verse in NET translation
+# Docs: https://labs.bible.org/api_web_service
+API_URL = "https://labs.bible.org/api/?passage=random&type=json"
+
+
+@app.route("/")
+def home():
+    return "Bible VOTD / random verse endpoint is running."
+
+
+@app.route("/votd")
+def votd():
+    try:
+        # Call the external Bible API
+        resp = requests.get(API_URL, timeout=5)
+        resp.raise_for_status()
+
+        data = resp.json()
+
+        # The API returns a list of verse objects; we use the first one
+        if isinstance(data, list) and data:
+            verse = data[0]
+            book = verse.get("bookname", "").strip()
+            chapter = verse.get("chapter", "").strip()
+            verse_num = verse.get("verse", "").strip()
+            text = verse.get("text", "").strip()
+
+            # NET is the translation used by this API
+            reference = f"{book} {chapter}:{verse_num} (NET)"
+            return f"{reference} - \"{text}\""
+        else:
+            return "Sorry, I couldn't load a verse right now. (Empty response)"
+
+    except Exception as e:
+        # Basic error message for Nightbot / Twitch
+        print("Error fetching verse:", e)
+        return "Sorry, there was an error getting a verse. Please try again."
+
+
+if __name__ == "__main__":
+    # Replit-friendly host/port
+    app.run(host="0.0.0.0", port=8000)
+flask
+requests
+gunicorn
