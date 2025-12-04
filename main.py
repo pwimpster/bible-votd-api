@@ -284,7 +284,7 @@ def verse_image(key):
     draw.text((ref_x, ref_y), reference, fill=(220, 220, 255), font=ref_font)
 
     # Tag in corner
-    credit_text = '/VerseP PwimpMyWide'
+    credit_text = '/Versep PwimpMyWide'
     tag_bbox = draw.textbbox((0, 0), credit_text, font=tag_font)
     tag_w = tag_bbox[2] - tag_bbox[0]
     tag_h = tag_bbox[3] - tag_bbox[1]
